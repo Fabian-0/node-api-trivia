@@ -1,0 +1,252 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "OPEN TRIVIA API",
+    "version": "1.0.0",
+    "description": "Api created for extend open trivia possibilities"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/user/": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Get one user with his token",
+        "responses": {
+          "200": {
+            "description": "A json with the user data"
+          },
+          "400": {
+            "description": "JSON error description"
+          },
+          "500": {
+            "description": "Just response with the status 500"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Users"],
+        "description": "create/register one User",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "minLength": 5,
+                    "maxLength": 50,
+                    "example": "Doyle"
+                  },
+                  "email": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 100,
+                    "example": "Doyle@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 15,
+                    "example": "mypassword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "JSON with a token"
+          },
+          "400": {
+            "description": "JSON with error detail"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "description": "update one User",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "minLength": 5,
+                    "maxLength": 50,
+                    "example": "Doyle"
+                  },
+                  "email": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 100,
+                    "example": "Doyle@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 15,
+                    "example": "mypassword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "JSON with a token"
+          },
+          "400": {
+            "description": "JSON with error detail"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Users"],
+        "description": "Delete one user only with his token",
+        "responses": {
+          "204": {
+            "description": "Just response with status 204"
+          },
+          "400": {
+            "description": "JSON with error detail"
+          },
+          "500": {
+            "description": "JSON with error detail"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/user/score/": {
+      "put": {
+        "tags": ["Score"],
+        "description": "Update the score through token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON with a message 'score updated'"
+          },
+          "400": {
+            "description": "JSON with a error description"
+          },
+          "500": {
+            "description": "Just response with the status 500"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/user/signin/": {
+      "post": {
+        "tags": ["Sign In"],
+        "description": "Validate account to get a token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 100,
+                    "example": "Doyle@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 15,
+                    "example": "mypassword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON with a token"
+          },
+          "400": {
+            "description": "JSON with error detail"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "User": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "length must be between 10 and 50 characters"
+          },
+          "email": {
+            "type": "string",
+            "description": "length must be between 10 and 100 characters with a email pattern"
+          },
+          "score": {
+            "type": "integer",
+            "description": "no need to add it when creating user"
+          },
+          "password": {
+            "type": "string",
+            "description": "length must be between 8 and 15 characters"
+          }
+        }
+      }
+    }
+  }
+}
