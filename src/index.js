@@ -1,3 +1,4 @@
+require("dotenv").config();
 const app = require("./api/server");
 const cors = require("cors");
 const { json } = require("express");
