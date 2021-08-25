@@ -34,9 +34,11 @@ async function createUser(req, res) {
 
     delete payloadToken.password;
     delete payloadToken.email;
-
+    console.log();
     const token = createToken(payloadToken);
-
+    console.log(token);
+    console.log(payloadToken);
+    console.log(newUser);
     res.status(201);
     res.json({
       "message": "user created",
